@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>  
+<body ng-app="myApp">
+
+<form name="myForm">
+    Email:-
+<input name="myInput" ng-model="myInput" required my-directive>
+
+    Age:-
+<input name="age" ng-model="age" required my-directive1>
+
+</form>
+
+<h1>{{myForm.myInput.$valid}}</h1>
+
+<h1>{{myForm.age.$valid}}</h1>
+
+<script>
+var app = angular.module('myApp', []);
+
+app.directive('myDirective1', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, mCtrl) {
+            function myValidation(value) {
+                if (value > 18 && value < 30) {
+                    mCtrl.$setValidity('charE', true);
+                } 
+                else{
+                    mCtrl.$setValidity('charE', false);
+                }
+                return value;
+            }
+            mCtrl.$parsers.push(myValidation);
+        }
+    };
+});
+
+
+app.directive('myDirective', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, mCtrl) {
+            function myValidation(value) {
+                if (value.indexOf("@") > -1) {
+                    mCtrl.$setValidity('charE', true);
+                } 
+                else{
+                mCtrl.$setValidity('charE', false);
+                }
+                return value;
+            }
+            mCtrl.$parsers.push(myValidation);
+        }
+    };
+});
+
+</script>
+
+<p>Email must contain @ </p>
+
+</body>
+</html>
