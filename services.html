@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+
+
+    <h1>Multiplication1 : {{mul1}}</h1>
+    <h1>Addition : {{add}}</h1>
+    <h1>Multiplication2 : {{mul2}}</h1>
+    
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+
+app.service('arithmatic', function() {
+    this.mul = function (x) {
+        return x * x;
+    }
+
+    this.add = function (a){
+        return a+a;
+    }
+});
+app.controller('myCtrl', function($scope, arithmatic) {
+  $scope.mul1 = arithmatic.mul(5);
+  $scope.add = arithmatic.add(5);
+  $scope.mul2 = arithmatic.mul(4);
+});
+</script>
+
+</body>
+</html>
